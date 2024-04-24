@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Education.DataAccessLayer\Education.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Education.DtoLayer\Education.DtoLayer.csproj" />
+    <ProjectReference Include="..\Education.EntityLayer\Education.EntityLayer.csproj" />
+  </ItemGroup>
+
+</Project>
