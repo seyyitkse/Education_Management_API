@@ -3,6 +3,7 @@ using System;
 using Education.DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425053528_add_other_tables")]
+    partial class add_other_tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,32 +181,6 @@ namespace Education.DataAccessLayer.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.CafeteriaCard", b =>
-                {
-                    b.Property<int>("MealCardID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApplicationUserID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Balance")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("MealCardID");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CafeteriaCards");
                 });
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.Department", b =>
@@ -419,17 +395,6 @@ namespace Education.DataAccessLayer.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Education.EntityLayer.Concrete.CafeteriaCard", b =>
-                {
-                    b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
-                        .WithMany("CafeteriaCards")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Education.EntityLayer.Concrete.Lesson", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.Department", "Department")
@@ -495,8 +460,6 @@ namespace Education.DataAccessLayer.Migrations
             modelBuilder.Entity("Education.EntityLayer.Concrete.ApplicationUser", b =>
                 {
                     b.Navigation("Absences");
-
-                    b.Navigation("CafeteriaCards");
                 });
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.Department", b =>
