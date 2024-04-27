@@ -2,7 +2,7 @@
 
 namespace Education.EntityLayer.Concrete
 {
-    public class ApplicationRole:IdentityRole
+    public class ApplicationRole:IdentityRole<int>
     {
     }
 }

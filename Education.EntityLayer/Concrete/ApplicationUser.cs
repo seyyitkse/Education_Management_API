@@ -3,14 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Education.EntityLayer.Concrete
 {
-    public class ApplicationUser:IdentityUser
+    public class ApplicationUser:IdentityUser<int>
     {
-        [Key]
-        public int ApplicationUserID { get; set; } 
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public int DepartmentID { get; set; }
         public Department? Department { get; set; }
         public ICollection<Absence>? Absences { get; set; }
+        public ICollection<CafeteriaCard>? CafeteriaCards { get; set; }
     }
 }
