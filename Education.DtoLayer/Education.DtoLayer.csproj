@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.29" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.29" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.29" />
@@ -28,6 +29,11 @@
   <ItemGroup>
     <Folder Include="Dtos\ApplicationRoleDto\" />
     <Folder Include="Dtos\ApplicationUserDto\" />
+    <Folder Include="Dtos\MessageDto\" />
+    <Folder Include="Dtos\AnnouncementDto\" />
+    <Folder Include="Dtos\LessonDto\" />
+    <Folder Include="Dtos\DepartmentDto\" />
+    <Folder Include="Dtos\CafeteriaCardDto\" />
   </ItemGroup>
 
 </Project>

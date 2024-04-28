@@ -25,10 +25,4 @@
     <ProjectReference Include="..\Education.EntityLayer\Education.EntityLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-    <Folder Include="EntityFramework\" />
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

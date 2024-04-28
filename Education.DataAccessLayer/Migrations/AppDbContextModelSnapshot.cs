@@ -37,15 +37,11 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<int>("LessonID")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("AbsenceID");
 
-                    b.HasIndex("LessonID");
+                    b.HasIndex("ApplicationUserID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("LessonID");
 
                     b.ToTable("Absences");
                 });
@@ -78,8 +74,9 @@ namespace Education.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.ApplicationRole", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -104,13 +101,11 @@ namespace Education.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("AccessFailedCount")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ApplicationUserID")
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -196,13 +191,9 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<string>("CardNumber")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("MealCardID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserID");
 
                     b.ToTable("CafeteriaCards");
                 });
@@ -276,7 +267,13 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<string>("Receiver")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("ReceiverName")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Sender")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("SenderName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Subject")
@@ -287,7 +284,7 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -299,9 +296,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -310,7 +306,7 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -322,9 +318,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -333,7 +328,7 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255)");
@@ -344,9 +339,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -355,13 +349,13 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -370,10 +364,10 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("varchar(255)");
@@ -391,15 +385,15 @@ namespace Education.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.Absence", b =>
                 {
-                    b.HasOne("Education.EntityLayer.Concrete.Lesson", "Lesson")
+                    b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
                         .WithMany("Absences")
-                        .HasForeignKey("LessonID")
+                        .HasForeignKey("ApplicationUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
+                    b.HasOne("Education.EntityLayer.Concrete.Lesson", "Lesson")
                         .WithMany("Absences")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("LessonID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -423,7 +417,7 @@ namespace Education.DataAccessLayer.Migrations
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
                         .WithMany("CafeteriaCards")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ApplicationUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -441,7 +435,7 @@ namespace Education.DataAccessLayer.Migrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationRole", null)
                         .WithMany()
@@ -450,7 +444,7 @@ namespace Education.DataAccessLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", null)
                         .WithMany()
@@ -459,7 +453,7 @@ namespace Education.DataAccessLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", null)
                         .WithMany()
@@ -468,7 +462,7 @@ namespace Education.DataAccessLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationRole", null)
                         .WithMany()
@@ -483,7 +477,7 @@ namespace Education.DataAccessLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", null)
                         .WithMany()
