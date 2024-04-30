@@ -27,12 +27,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\ApplicationRoleDto\" />
-    <Folder Include="Dtos\ApplicationUserDto\" />
     <Folder Include="Dtos\MessageDto\" />
-    <Folder Include="Dtos\AnnouncementDto\" />
     <Folder Include="Dtos\LessonDto\" />
-    <Folder Include="Dtos\DepartmentDto\" />
     <Folder Include="Dtos\CafeteriaCardDto\" />
   </ItemGroup>
 

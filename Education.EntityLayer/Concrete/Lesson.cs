@@ -11,13 +11,13 @@ namespace Education.EntityLayer.Concrete
         public string? Description { get; set; }
         public int TeacherID { get; set; }
         public int DepartmentID { get; set; }
-        public Department? Department { get; set; }
+        //public Department? Department { get; set; }
         public int Status { get; set; }
         public DateTime Date { get; set; }
         public Lesson()
         {
             Status = 1;
         }
-        public ICollection<Absence>? Absences { get; set; }
+        //public ICollection<Absence>? Absences { get; set; }
     }
 }

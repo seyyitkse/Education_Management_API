@@ -10,7 +10,7 @@ namespace Education.EntityLayer.Concrete
         public string? CardNumber { get; set; }
         public int Balance { get; set; }
         public int ApplicationUserID { get; set; }
-        public ApplicationUser? User { get; set; }
+        //public ApplicationUser? User { get; set; }
 
     }
 }

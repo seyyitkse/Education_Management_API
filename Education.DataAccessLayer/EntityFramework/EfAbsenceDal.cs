@@ -10,6 +10,7 @@ namespace Education.DataAccessLayer.EntityFramework
         public EfAbsenceDal(AppDbContext context) : base(context)
         {
         }
+
     }
 
 }
