@@ -63,17 +63,6 @@ builder.Services.AddScoped<IApplicationRoleService, ApplicationRoleManager>();
 builder.Services.AddScoped<IDepartmentDal, EfDepartmentDal>();
 builder.Services.AddScoped<IDepartmentService, DepartmentManager>();
 
-builder.Services.AddScoped<ICafeteriaCardDal, EfCafeteriaCardDal>();
-builder.Services.AddScoped<ICafeteriaCardService, CafeteriaCardManager>();
-
-builder.Services.AddCors(opt =>
-{
-    opt.AddPolicy("EducationApiCors", opts =>
-    {
-        opts.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
-    });
-});
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -87,7 +76,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("TrackingApiCors");
 
 app.UseHttpsRedirection();
 
