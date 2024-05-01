@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240428183940_add_new_column_with_aspnetuser_table")]
-    partial class add_new_column_with_aspnetuser_table
+    [Migration("20240501200923_update_cafeteria_cardnumber")]
+    partial class update_cafeteria_cardnumber
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,10 +40,6 @@ namespace Education.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("AbsenceID");
-
-                    b.HasIndex("ApplicationUserID");
-
-                    b.HasIndex("LessonID");
 
                     b.ToTable("Absences");
                 });
@@ -168,9 +164,6 @@ namespace Education.DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentID")
-                        .IsUnique();
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -193,12 +186,10 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("longtext");
+                    b.Property<long>("CardNumber")
+                        .HasColumnType("bigint");
 
                     b.HasKey("MealCardID");
-
-                    b.HasIndex("ApplicationUserID");
 
                     b.ToTable("CafeteriaCards");
                 });
@@ -251,8 +242,6 @@ namespace Education.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("LessonID");
-
-                    b.HasIndex("DepartmentID");
 
                     b.ToTable("Lessons");
                 });
@@ -388,58 +377,6 @@ namespace Education.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Education.EntityLayer.Concrete.Absence", b =>
-                {
-                    b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
-                        .WithMany("Absences")
-                        .HasForeignKey("ApplicationUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Education.EntityLayer.Concrete.Lesson", "Lesson")
-                        .WithMany("Absences")
-                        .HasForeignKey("LessonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lesson");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.ApplicationUser", b =>
-                {
-                    b.HasOne("Education.EntityLayer.Concrete.Department", "Department")
-                        .WithOne("User")
-                        .HasForeignKey("Education.EntityLayer.Concrete.ApplicationUser", "DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.CafeteriaCard", b =>
-                {
-                    b.HasOne("Education.EntityLayer.Concrete.ApplicationUser", "User")
-                        .WithMany("CafeteriaCards")
-                        .HasForeignKey("ApplicationUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.Lesson", b =>
-                {
-                    b.HasOne("Education.EntityLayer.Concrete.Department", "Department")
-                        .WithMany("Lessons")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Education.EntityLayer.Concrete.ApplicationRole", null)
@@ -489,25 +426,6 @@ namespace Education.DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.ApplicationUser", b =>
-                {
-                    b.Navigation("Absences");
-
-                    b.Navigation("CafeteriaCards");
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.Department", b =>
-                {
-                    b.Navigation("Lessons");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Education.EntityLayer.Concrete.Lesson", b =>
-                {
-                    b.Navigation("Absences");
                 });
 #pragma warning restore 612, 618
         }
