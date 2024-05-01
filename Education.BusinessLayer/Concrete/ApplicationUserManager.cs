@@ -3,7 +3,6 @@ using Education.DataAccessLayer.Abstract;
 using Education.DtoLayer.Dtos.ApplicationUserDto;
 using Education.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace Education.BusinessLayer.Concrete
 {
