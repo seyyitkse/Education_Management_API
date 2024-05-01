@@ -29,7 +29,6 @@
   <ItemGroup>
     <Folder Include="Dtos\MessageDto\" />
     <Folder Include="Dtos\LessonDto\" />
-    <Folder Include="Dtos\CafeteriaCardDto\" />
   </ItemGroup>
 
 </Project>
