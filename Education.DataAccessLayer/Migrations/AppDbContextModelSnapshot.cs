@@ -184,8 +184,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<long>("CardNumber")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("longtext");
 
                     b.HasKey("MealCardID");
 
