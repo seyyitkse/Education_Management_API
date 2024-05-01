@@ -1,7 +1,7 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.DtoLayer.Dtos.ApplicationUserDto;
 using Education.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +11,6 @@ using System.Text;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -45,11 +44,9 @@ namespace Education.WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userName= _userManager.Users.FirstOrDefault(x => x.Email == model.Email);
                 var user = await _applicationUserService.LoginUserAsync(model);
                 if (user.IsSuccess)
                 {
-                    var loginResult=await _userManager.AddLoginAsync(userName, new UserLoginInfo("Email", model.Email, "Email"));
                     var token = CreateToken(model);
                     return Ok(new { Token = token });
                 }

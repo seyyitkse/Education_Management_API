@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240430122657_update_column_with_cardnumber")]
-    partial class update_column_with_cardnumber
+    [Migration("20240428185832_various_changes_with_relations")]
+    partial class various_changes_with_relations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -186,8 +186,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<byte?>("CardNumber")
-                        .HasColumnType("tinyint unsigned");
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("longtext");
 
                     b.HasKey("MealCardID");
 
