@@ -5,5 +5,6 @@ namespace Education.BusinessLayer.Abstract
 {
     public interface IDepartmentService : IGenericService<Department>
     {
+        public string GenerateDepartmentCode(string departmentName);
     }
 }

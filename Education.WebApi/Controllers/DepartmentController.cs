@@ -1,4 +1,5 @@
 ﻿using Education.BusinessLayer.Abstract;
+using Education.DataAccessLayer.Abstract;
 using Education.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +13,12 @@ namespace Education.WebApi.Controllers
     {
         //dtoya gore ayarlama yapılacak!!!
         IDepartmentService _departmentService;
+        IDepartmentDal _departmentDal;
 
-        public DepartmentController(IDepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService, IDepartmentDal departmentDal)
         {
             _departmentService = departmentService;
+            _departmentDal = departmentDal;
         }
 
         [HttpGet]
@@ -24,13 +27,27 @@ namespace Education.WebApi.Controllers
             var values = _departmentService.TGetList();
             return Ok(values);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult AddDepartment(Department Department)
+        public IActionResult AddDepartment(string departmentName, string description)
         {
-            _departmentService.TInsert(Department);
-            return Ok();
+            var existingDepartment = _departmentDal.GetDepartmentByName(departmentName);
+
+            if (existingDepartment != null)
+            {
+                return BadRequest($"'{departmentName}' isimli bölüm zaten mevcut.");
+            }
+
+            Department department = new Department();
+            department.DepartmentName = departmentName;
+            department.Description = description;
+
+            var departmentCode = _departmentService.GenerateDepartmentCode(departmentName);
+            department.DepartmentCode = departmentCode;
+
+            _departmentService.TInsert(department);
+            return Ok($"'{departmentName}' isimli '{departmentCode}' kodlu bölüm oluşturuldu.");
         }
+
         [HttpDelete]
         public IActionResult DeleteDepartment(int id)
         {
