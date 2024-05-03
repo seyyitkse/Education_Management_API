@@ -69,6 +69,9 @@ builder.Services.AddScoped<ICafeteriaCardService, CafeteriaCardManager>();
 builder.Services.AddScoped<IGradeDal, EfGradeDal>();
 builder.Services.AddScoped<IGradeService, GradeManager>();
 
+builder.Services.AddScoped<IMessageDal, EfMessageDal>();
+builder.Services.AddScoped<IMessageService, MessageManager>();
+
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("EducationApiCors", opts =>
