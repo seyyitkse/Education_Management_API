@@ -13,6 +13,11 @@ namespace Education.BusinessLayer.Concrete
             _gradeDal = gradeDal;
         }
 
+        public List<Grade> GetGradesByStudentId(int studentId)
+        {
+            return _gradeDal.GetGradesByStudentId(studentId);
+        }
+
         public void TDelete(Grade entity)
         {
             _gradeDal.Delete(entity);

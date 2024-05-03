@@ -44,10 +44,16 @@ namespace Education.WebApi.Controllers
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetGrade(int id)
+        public IActionResult GetGrade(int gradeId)
         {
-            var values = _gradeService.TGetById(id);
+            var values = _gradeService.TGetById(gradeId);
             return Ok(values);
+        }
+        [HttpGet("studentGrades")]
+        public IActionResult GetMyGrades(int studentId)
+        {
+            var grades = _gradeService.GetGradesByStudentId(studentId);
+            return Ok(grades);
         }
     }
 }
