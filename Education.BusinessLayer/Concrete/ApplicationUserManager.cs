@@ -3,6 +3,7 @@ using Education.DataAccessLayer.Abstract;
 using Education.DtoLayer.Dtos.ApplicationUserDto;
 using Education.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Education.BusinessLayer.Concrete
 {
@@ -66,36 +67,56 @@ namespace Education.BusinessLayer.Concrete
                 };
             }
 
+            var existingUserByEmail = await _userManager.FindByEmailAsync(model.Mail);
+            if (existingUserByEmail != null)
+            {
+                return new UserResponse
+                {
+                    Message = "Bu e-posta adresiyle kayıtlı bir kullanıcı zaten var.",
+                    IsSuccess = false
+                };
+            }
+
+            var existingUserByCafeteriaCardId = await _userManager.Users.FirstOrDefaultAsync(u => u.CafeteriaCardID == model.CafeteriaCardID);
+            if (existingUserByCafeteriaCardId != null)
+            {
+                return new UserResponse
+                {
+                    Message = "Bu CafeteriaCardID ile kayıtlı bir kullanıcı zaten var.",
+                    IsSuccess = false
+                };
+            }
+
             var identityuser = new ApplicationUser()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Mail,
                 UserName = model.Mail,
-                CafeteriaCardID=model.CafeteriaCardID,
+                CafeteriaCardID = model.CafeteriaCardID,
                 DepartmentID = model.DepartmentID
             };
 
             var result = await _userManager.CreateAsync(identityuser, model.Password);
             if (result.Succeeded)
             {
- 
-                await _userManager.AddToRoleAsync(identityuser, "Ogrenci");
+                //await _userManager.AddToRoleAsync(identityuser, "Ogrenci");
 
                 return new UserResponse
                 {
-                    Message = "Öğrenci oluşturma işlemi başarıyla gerçekleştirildi.",
-                    IsSuccess = false,
+                    Message = "Kullanıcı oluşturma işlemi başarıyla gerçekleştirildi.",
+                    IsSuccess = true,
                     Errors = result.Errors.Select(e => e.Description)
                 };
             }
             return new UserResponse
             {
-                Message = "Öğrenci oluşturulamadı!",
+                Message = "Kullanıcı oluşturulamadı!",
                 IsSuccess = false,
                 Errors = result.Errors.Select(e => e.Description)
             };
         }
+
 
         public void TDelete(ApplicationUser entity)
         {
