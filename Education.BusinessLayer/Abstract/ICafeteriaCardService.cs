@@ -5,6 +5,6 @@ namespace Education.BusinessLayer.Abstract
 {
     public interface ICafeteriaCardService : IGenericService<CafeteriaCard>
     {
-        Task<CardTransactionResult> DeductBalanceAsync(int mealCardId, int amount);
+        Task<CardTransactionResult> DeductBalanceAsync(long mealCardId, int amount);
     }
 }

@@ -13,37 +13,39 @@ namespace Education.BusinessLayer.Concrete
             _cafeteriaCardDal = cafeteriaCardDal;
         }
 
-        public  Task<CardTransactionResult> DeductBalanceAsync(int cardNumber, int amount)
+        public async Task<CardTransactionResult> DeductBalanceAsync(long cardNumber, int amount)
         {
-            var card = _cafeteriaCardDal.GetById(cardNumber);
+            var card = await _cafeteriaCardDal.FindByCardNumberAsync(cardNumber);
+
             if (card == null)
             {
-                return Task.FromResult(new CardTransactionResult
+                return new CardTransactionResult
                 {
                     Message = "Yemek kartı bulunamadı.",
                     IsSuccess = false
-                });
+                };
             }
 
             if (card.Balance < amount)
             {
-                return Task.FromResult(new CardTransactionResult
+                return new CardTransactionResult
                 {
                     IsSuccess = false,
                     Message = "Kart bakiyesi yetersiz"
-                });
+                };
             }
 
             card.Balance -= amount;
             _cafeteriaCardDal.Update(card);
 
-            return Task.FromResult(new CardTransactionResult
+            return new CardTransactionResult
             {
                 IsSuccess = true,
                 Message = "Geçiş başarılı",
                 NewBalance = card.Balance
-            });
+            };
         }
+
 
         public void TDelete(CafeteriaCard entity)
         {
