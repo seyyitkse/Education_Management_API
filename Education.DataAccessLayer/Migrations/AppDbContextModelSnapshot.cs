@@ -184,8 +184,8 @@ namespace Education.DataAccessLayer.Migrations
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("longtext");
+                    b.Property<long>("CardNumber")
+                        .HasColumnType("bigint");
 
                     b.HasKey("MealCardID");
 
@@ -210,6 +210,26 @@ namespace Education.DataAccessLayer.Migrations
                     b.HasKey("DepartmentID");
 
                     b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Education.EntityLayer.Concrete.Grade", b =>
+                {
+                    b.Property<int>("GradeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GradeId");
+
+                    b.ToTable("Grades");
                 });
 
             modelBuilder.Entity("Education.EntityLayer.Concrete.Lesson", b =>

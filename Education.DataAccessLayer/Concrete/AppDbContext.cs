@@ -12,6 +12,7 @@ namespace Education.DataAccessLayer.Concrete
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<CafeteriaCard> CafeteriaCards{ get; set; }
+        public DbSet<Grade> Grades{ get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
