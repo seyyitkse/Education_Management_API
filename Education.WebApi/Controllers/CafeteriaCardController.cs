@@ -48,6 +48,28 @@ namespace Education.WebApi.Controllers
                 return BadRequest(result.Message);
             }
         }
+
+        [HttpPut("LoadBalance")]
+        public async Task<IActionResult> LoadBalance(long cardNumber, int amount)
+        {
+            var result = await _cafeteriaCardService.LoadBalanceAsync(cardNumber, amount);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPut("TransferBalance")]
+        public async Task<IActionResult> TransferBalance(long fromCardNumber, long toCardNumber, int amount)
+        {
+            var result = await _cafeteriaCardService.TransferBalanceAsync(fromCardNumber, toCardNumber, amount);
+            if (result.IsSuccess)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("{id}")]
         public IActionResult GetCafeteriaCard(int id)
         {
