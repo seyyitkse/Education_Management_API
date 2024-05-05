@@ -1,13 +1,12 @@
-﻿using Education.DataAccessLayer.Concrete;
-using Microsoft.EntityFrameworkCore;
-using Education.WebApi.Controllers;
 using Education.BusinessLayer.Abstract;
 using Education.BusinessLayer.Concrete;
 using Education.DataAccessLayer.Abstract;
+using Education.DataAccessLayer.Concrete;
 using Education.DataAccessLayer.EntityFramework;
 using Education.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -80,6 +79,8 @@ builder.Services.AddCors(opt =>
     });
 });
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -96,6 +97,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("TrackingApiCors");
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

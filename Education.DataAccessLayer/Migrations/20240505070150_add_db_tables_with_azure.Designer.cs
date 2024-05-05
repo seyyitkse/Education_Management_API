@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.DataAccessLayer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240503062118_add_db_tables")]
-    partial class add_db_tables
+    [Migration("20240505070150_add_db_tables_with_azure")]
+    partial class add_db_tables_with_azure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -151,6 +151,12 @@ namespace Education.DataAccessLayer.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("RefreshTokenExpiryTime")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
