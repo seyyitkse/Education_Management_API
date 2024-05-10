@@ -8,5 +8,6 @@ namespace Education.BusinessLayer.Abstract
         Task<CardTransactionResult> DeductBalanceAsync(long mealCardId, int amount);
         Task<CardTransactionResult> LoadBalanceAsync(long cardNumber, int amount);
         Task<CardTransactionResult> TransferBalanceAsync(long fromCardNumber, long toCardNumber, int amount);
+        Task<CafeteriaCard> FindByApplicationUserIDAsync(int applicationUserID);
     }
 }

@@ -1,13 +1,16 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.DataAccessLayer.Abstract;
+using Education.DataAccessLayer.Concrete;
 using Education.DtoLayer.Dtos.CafeteriaCardDto;
 using Education.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace Education.BusinessLayer.Concrete
 {
     public class CafeteriaCardManager : ICafeteriaCardService
     {
         readonly ICafeteriaCardDal _cafeteriaCardDal;
+        private readonly AppDbContext _context;
         public CafeteriaCardManager(ICafeteriaCardDal cafeteriaCardDal)
         {
             _cafeteriaCardDal = cafeteriaCardDal;
@@ -128,6 +131,11 @@ namespace Education.BusinessLayer.Concrete
         public void TUpdate(CafeteriaCard entity)
         {
             _cafeteriaCardDal.Update(entity);
+        }
+        public async Task<CafeteriaCard> FindByApplicationUserIDAsync(int applicationUserID)
+        {
+            var cafeteriaCard = _context.CafeteriaCards.FirstOrDefault(c => c.ApplicationUserID == applicationUserID);
+            return cafeteriaCard;
         }
     }
 }
