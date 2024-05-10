@@ -13,7 +13,6 @@ using System.Text;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

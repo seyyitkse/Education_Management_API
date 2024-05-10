@@ -73,7 +73,7 @@ builder.Services.AddScoped<IMessageService, MessageManager>();
 
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("EducationApiCors", opts =>
+    opt.AddDefaultPolicy( opts =>
     {
         opts.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
