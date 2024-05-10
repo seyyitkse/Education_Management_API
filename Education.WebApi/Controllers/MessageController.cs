@@ -2,12 +2,14 @@
 using Education.DataAccessLayer.Abstract;
 using Education.DataAccessLayer.EntityFramework;
 using Education.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class MessageController : ControllerBase

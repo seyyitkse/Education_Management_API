@@ -1,6 +1,5 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 

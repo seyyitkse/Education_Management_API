@@ -1,10 +1,12 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.DataAccessLayer.Abstract;
 using Education.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase
