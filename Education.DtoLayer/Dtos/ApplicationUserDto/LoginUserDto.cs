@@ -6,7 +6,6 @@ namespace Education.DtoLayer.Dtos.ApplicationUserDto
     {
         [Required]
         [StringLength(50)]
-        [EmailAddress]
         public string Email { get; set; }
         [Required]
         [StringLength(50)]
