@@ -73,7 +73,7 @@ namespace Education.WebApi.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("{id}")]
+        [HttpGet("getCafeteriaCard")]
         public IActionResult GetCafeteriaCard(int userID)
         {
             var values = _cafeteriaCardService.FindByApplicationUserIDAsync(userID);
