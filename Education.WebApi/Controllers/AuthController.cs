@@ -138,29 +138,27 @@ namespace Education.WebApi.Controllers
             return principal;
         }
 
-        private string CreateToken(LoginUserDto user, bool isRefreshToken)
+        private  string  CreateToken(LoginUserDto user, bool isRefreshToken)
         {
             ApplicationUser userRole = _userManager.Users.FirstOrDefault(x => x.Email == user.Email);
             var roleNames = _userManager.GetRolesAsync(userRole).Result;
 
+            string joinRoleName = string.Join(',', roleNames);
+
+            // öğrenci, dekan, 
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Token"]));
-
-            var claims = new List<Claim>
-        {
-            new(ClaimTypes.Email, user.Email),
-        };
-
-            foreach (var item in roleNames)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, item));
-            }
 
             var expiryTime = DateTime.Now.AddMinutes(30);
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["AuthSettings:Issuer"],
                 audience: _configuration["AuthSettings:Audience"],
-                claims: claims,
+                claims: new List<Claim>
+                {
+                    new Claim("Email", user.Email ),
+                    new Claim("Role", joinRoleName )
+                },
                 expires: expiryTime,
                 notBefore: DateTime.Now,
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)

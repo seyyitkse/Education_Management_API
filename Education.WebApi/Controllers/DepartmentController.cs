@@ -1,8 +1,6 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.DataAccessLayer.Abstract;
 using Education.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers

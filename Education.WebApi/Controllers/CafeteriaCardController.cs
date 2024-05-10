@@ -35,9 +35,10 @@ namespace Education.WebApi.Controllers
             return Ok();
         }
         [HttpPut("DeductBalance")]
-        public async Task<IActionResult> DeductBalanceAsync(long cardNumber, int amount)
+        public async Task<IActionResult> DeductBalanceAsync(long cardNumber)
         {
-            var result = await _cafeteriaCardService.DeductBalanceAsync(cardNumber, amount);
+            int cook = 30;
+            var result = await _cafeteriaCardService.DeductBalanceAsync(cardNumber, cook);
 
             if (result.IsSuccess)
             {
