@@ -134,8 +134,7 @@ namespace Education.BusinessLayer.Concrete
         }
         public async Task<CafeteriaCard> FindByApplicationUserIDAsync(int applicationUserID)
         {
-            var cafeteriaCard = _context.CafeteriaCards.FirstOrDefault(c => c.ApplicationUserID == applicationUserID);
-            return cafeteriaCard;
+            return  _context.CafeteriaCards.FirstOrDefault(c => c.ApplicationUserID == applicationUserID);
         }
     }
 }
