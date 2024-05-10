@@ -3,7 +3,6 @@ using Education.DataAccessLayer.Abstract;
 using Education.DataAccessLayer.Concrete;
 using Education.DtoLayer.Dtos.CafeteriaCardDto;
 using Education.EntityLayer.Concrete;
-using Microsoft.EntityFrameworkCore;
 
 namespace Education.BusinessLayer.Concrete
 {
