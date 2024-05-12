@@ -10,9 +10,11 @@ namespace Education.BusinessLayer.Concrete
     {
         readonly ICafeteriaCardDal _cafeteriaCardDal;
         private readonly AppDbContext _context;
-        public CafeteriaCardManager(ICafeteriaCardDal cafeteriaCardDal)
+
+        public CafeteriaCardManager(ICafeteriaCardDal cafeteriaCardDal, AppDbContext context)
         {
             _cafeteriaCardDal = cafeteriaCardDal;
+            _context = context;
         }
 
         public async Task<CardTransactionResult> DeductBalanceAsync(long cardNumber, int amount)

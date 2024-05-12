@@ -74,10 +74,18 @@ namespace Education.WebApi.Controllers
             return BadRequest(result);
         }
         [HttpGet("getCafeteriaCard")]
-        public IActionResult GetCafeteriaCard(int userID)
+        public async Task<IActionResult> GetCafeteriaCard(int userID)
         {
-            var values = _cafeteriaCardService.FindByApplicationUserIDAsync(userID);
-            return Ok(values);
+            var cafeteriaCard = await _cafeteriaCardService.FindByApplicationUserIDAsync(userID);
+
+            if (cafeteriaCard != null)
+            {
+                return Ok(cafeteriaCard);
+            }
+            else
+            {
+                return NotFound( "Belirtilen kullanıcı kimliğiyle eşleşen bir yemek kartı bulunamadı."); 
+            }
         }
     }
 }
