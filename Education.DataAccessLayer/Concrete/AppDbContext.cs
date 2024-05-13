@@ -14,7 +14,7 @@ namespace Education.DataAccessLayer.Concrete
         public DbSet<CafeteriaCard> CafeteriaCards{ get; set; }
         public DbSet<Grade> Grades{ get; set; }
         public AppDbContext(DbContextOptions options) : base(options)
-        {
+        {//4130130106
         }
     }
 }

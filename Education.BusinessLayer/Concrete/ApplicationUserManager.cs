@@ -1,5 +1,6 @@
 ﻿using Education.BusinessLayer.Abstract;
 using Education.DataAccessLayer.Abstract;
+using Education.DataAccessLayer.Concrete;
 using Education.DtoLayer.Dtos.ApplicationUserDto;
 using Education.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
@@ -11,15 +12,15 @@ namespace Education.BusinessLayer.Concrete
     {
         private readonly IApplicationUserDal _applicationUserDal;
         private readonly UserManager<ApplicationUser> _userManager;
-
+        private readonly AppDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-
-        public ApplicationUserManager(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IApplicationUserDal applicationUserDal)
+        public ApplicationUserManager(IApplicationUserDal applicationUserDal, UserManager<ApplicationUser> userManager, AppDbContext context, SignInManager<ApplicationUser> signInManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _applicationUserDal = applicationUserDal;
+            _userManager = userManager;
+            _context = context;
+            _signInManager = signInManager;
         }
 
         public async Task<UserResponse> LoginUserAsync(LoginUserDto model)
@@ -86,7 +87,7 @@ namespace Education.BusinessLayer.Concrete
                     IsSuccess = false
                 };
             }
-
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == model.DepartmentID);
             var identityuser = new ApplicationUser()
             {
                 FirstName = model.FirstName,
@@ -94,7 +95,8 @@ namespace Education.BusinessLayer.Concrete
                 Email = model.Mail,
                 UserName = model.Mail,
                 CafeteriaCardID = model.CafeteriaCardID,
-                DepartmentID = model.DepartmentID
+                DepartmentID = model.DepartmentID,
+                departmentName=department.DepartmentName
             };
 
             var result = await _userManager.CreateAsync(identityuser, model.Password);

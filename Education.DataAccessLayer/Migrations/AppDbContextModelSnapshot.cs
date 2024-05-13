@@ -166,6 +166,9 @@ namespace Education.DataAccessLayer.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
+                    b.Property<string>("departmentName")
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
