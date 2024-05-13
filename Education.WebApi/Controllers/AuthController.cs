@@ -1,10 +1,12 @@
 ﻿using Education.BusinessLayer.Abstract;
+using Education.DataAccessLayer.Concrete;
 using Education.DtoLayer.Dtos.ApplicationUserDto;
 using Education.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -20,13 +22,16 @@ namespace Education.WebApi.Controllers
         private readonly IApplicationUserService _applicationUserService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
+        private readonly AppDbContext _context;
 
-        public AuthController(IApplicationUserService applicationUserService, UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AuthController(IApplicationUserService applicationUserService, UserManager<ApplicationUser> userManager, IConfiguration configuration, AppDbContext context)
         {
             _applicationUserService = applicationUserService;
             _userManager = userManager;
             _configuration = configuration;
+            _context = context;
         }
+
         [HttpPost("RegisterStudent")]
         public async Task<IActionResult> RegisterStudentAsync([FromBody] CreateUserDto model)
         {
@@ -142,9 +147,16 @@ namespace Education.WebApi.Controllers
         {
             ApplicationUser userRole = _userManager.Users.FirstOrDefault(x => x.Email == user.Email);
             var roleNames = _userManager.GetRolesAsync(userRole).Result;
-
             string joinRoleName = string.Join(',', roleNames);
 
+            string firstName = userRole.FirstName;
+            string lastName = userRole.LastName;
+            int departmentId = userRole.DepartmentID;
+            var department = _context.Departments.FirstOrDefault(d => d.DepartmentID == departmentId);
+            string departmentName = department != null ? department.DepartmentName : "";
+            int cafeteriaId = userRole.CafeteriaCardID;
+            var cafeteria = _context.CafeteriaCards.FirstOrDefault(c => c.MealCardID == cafeteriaId);
+            var studentId = userRole.Id;
             // öğrenci, dekan, 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AuthSettings:Token"]));
@@ -157,7 +169,11 @@ namespace Education.WebApi.Controllers
                 claims: new List<Claim>
                 {
                     new Claim("Email", user.Email ),
-                    new Claim("Role", joinRoleName )
+                    new Claim("Role", joinRoleName ),
+                    new Claim("User", firstName+" "+lastName ),
+                    new Claim("Departman", departmentName ),
+                    new Claim("CafeteriaCard", cafeteria.CardNumber.ToString()),
+                    new Claim("StudentNumber", studentId.ToString()),
                 },
                 expires: expiryTime,
                 notBefore: DateTime.Now,
