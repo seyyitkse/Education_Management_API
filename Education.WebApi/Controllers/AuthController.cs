@@ -172,8 +172,9 @@ namespace Education.WebApi.Controllers
                     new Claim("Role", joinRoleName ),
                     new Claim("User", firstName+" "+lastName ),
                     new Claim("Departman", departmentName ),
+                    new Claim("Faculty", department.Description),
                     new Claim("CafeteriaCard", cafeteria.CardNumber.ToString()),
-                    new Claim("StudentNumber", studentId.ToString()),
+                    new Claim("StudentNumber", studentId.ToString())
                 },
                 expires: expiryTime,
                 notBefore: DateTime.Now,
