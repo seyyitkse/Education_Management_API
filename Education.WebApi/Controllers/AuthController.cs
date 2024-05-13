@@ -152,6 +152,8 @@ namespace Education.WebApi.Controllers
             string firstName = userRole.FirstName;
             string lastName = userRole.LastName;
             int departmentId = userRole.DepartmentID;
+            string semester = userRole.Semester;
+            string studentClass = userRole.StudentClass;
             var department = _context.Departments.FirstOrDefault(d => d.DepartmentID == departmentId);
             string departmentName = department != null ? department.DepartmentName : "";
             int cafeteriaId = userRole.CafeteriaCardID;
@@ -174,7 +176,9 @@ namespace Education.WebApi.Controllers
                     new Claim("Departman", departmentName ),
                     new Claim("Faculty", department.Description),
                     new Claim("CafeteriaCard", cafeteria.CardNumber.ToString()),
-                    new Claim("StudentNumber", studentId.ToString())
+                    new Claim("StudentNumber", studentId.ToString()),
+                    new Claim("Semester", semester),
+                    new Claim("StudentClass", studentClass),
                 },
                 expires: expiryTime,
                 notBefore: DateTime.Now,
