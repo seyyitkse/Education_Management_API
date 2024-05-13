@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class CafeteriaCardController : ControllerBase
@@ -27,13 +26,6 @@ namespace Education.WebApi.Controllers
         public IActionResult AddCafeteriaCard(CafeteriaCard CafeteriaCard)
         {
             _cafeteriaCardService.TInsert(CafeteriaCard);
-            return Ok();
-        }
-        [HttpDelete]
-        public IActionResult DeleteCafeteriaCard(int id)
-        {
-            var values = _cafeteriaCardService.TGetById(id);
-            _cafeteriaCardService.TDelete(values);
             return Ok();
         }
         [HttpPut("DeductBalance")]

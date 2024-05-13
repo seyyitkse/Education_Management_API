@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class ApplicationUserController : ControllerBase

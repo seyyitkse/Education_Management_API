@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase
@@ -46,14 +45,6 @@ namespace Education.WebApi.Controllers
 
             _departmentService.TInsert(department);
             return Ok($"'{departmentName}' isimli '{departmentCode}' kodlu bölüm oluşturuldu.");
-        }
-
-        [HttpDelete]
-        public IActionResult DeleteDepartment(int id)
-        {
-            var values = _departmentService.TGetById(id);
-            _departmentService.TDelete(values);
-            return Ok();
         }
         [HttpPut]
         public IActionResult UpdateDepartment(Department Department)

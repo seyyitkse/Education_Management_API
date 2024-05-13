@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class RoleController : ControllerBase

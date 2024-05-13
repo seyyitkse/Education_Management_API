@@ -34,7 +34,6 @@ namespace Education.BusinessLayer.Concrete
                     IsSuccess = false
                 };
             }
-
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, lockoutOnFailure: false);
             if (result.Succeeded)
             {

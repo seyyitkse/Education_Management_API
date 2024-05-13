@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class LessonController : ControllerBase
@@ -29,13 +28,6 @@ namespace Education.WebApi.Controllers
         public IActionResult AddLesson(Lesson Lesson)
         {
             _lessonService.TInsert(Lesson);
-            return Ok();
-        }
-        [HttpDelete]
-        public IActionResult DeleteLesson(int id)
-        {
-            var values = _lessonService.TGetById(id);
-            _lessonService.TDelete(values);
             return Ok();
         }
         [HttpPut]

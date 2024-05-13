@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class AbsenceController : ControllerBase
@@ -28,13 +27,6 @@ namespace Education.WebApi.Controllers
         public IActionResult AddAbsence(CreateAbsenceDto absenceDto)
         {
             _absenceService.TInsert(absenceDto);
-            return Ok();
-        }
-        [HttpDelete]
-        public IActionResult DeleteAbsence(int id)
-        {
-            var values = _absenceService.TGetById(id);
-            _absenceService.TDelete(values);
             return Ok();
         }
         [HttpPut]

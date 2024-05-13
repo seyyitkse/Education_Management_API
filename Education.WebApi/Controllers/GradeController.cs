@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Education.WebApi.Controllers
 {
-    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class GradeController : ControllerBase
@@ -27,13 +26,6 @@ namespace Education.WebApi.Controllers
         public IActionResult AddGrade(Grade Grade)
         {
             _gradeService.TInsert(Grade);
-            return Ok();
-        }
-        [HttpDelete]
-        public IActionResult DeleteGrade(int id)
-        {
-            var values = _gradeService.TGetById(id);
-            _gradeService.TDelete(values);
             return Ok();
         }
         [HttpPut]
