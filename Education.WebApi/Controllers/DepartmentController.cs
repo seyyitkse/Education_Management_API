@@ -44,7 +44,8 @@ namespace Education.WebApi.Controllers
             department.DepartmentCode = departmentCode;
 
             _departmentService.TInsert(department);
-            return Ok($"'{departmentName}' isimli '{departmentCode}' kodlu bölüm oluşturuldu.");
+            //return Ok($"'{departmentName}' isimli '{departmentCode}' kodlu bölüm oluşturuldu.");
+            return Ok();
         }
         [HttpPut]
         public IActionResult UpdateDepartment(Department Department)
