@@ -15,7 +15,7 @@ namespace Education.EntityLayer.Concrete
         public DateTime RefreshTokenExpiryTime { get; set; }
         //public Department? Department { get; set; }
         //public ICollection<Absence>? Absences { get; set; }
-        public int CafeteriaCardID { get; set; }
+        public int? CafeteriaCardID { get; set; }
         //public ICollection<CafeteriaCard>? CafeteriaCards { get; set; }
     }
 }

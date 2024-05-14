@@ -77,15 +77,15 @@ namespace Education.BusinessLayer.Concrete
                 };
             }
 
-            var existingUserByCafeteriaCardId = await _userManager.Users.FirstOrDefaultAsync(u => u.CafeteriaCardID == model.CafeteriaCardID);
-            if (existingUserByCafeteriaCardId != null)
-            {
-                return new UserResponse
-                {
-                    Message = "Bu CafeteriaCardID ile kayıtlı bir kullanıcı zaten var.",
-                    IsSuccess = false
-                };
-            }
+            //var existingUserByCafeteriaCardId = await _userManager.Users.FirstOrDefaultAsync(u => u.CafeteriaCardID == model.CafeteriaCardID);
+            //if (existingUserByCafeteriaCardId != null)
+            //{
+            //    return new UserResponse
+            //    {
+            //        Message = "Bu CafeteriaCardID ile kayıtlı bir kullanıcı zaten var.",
+            //        IsSuccess = false
+            //    };
+            //}
             var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentID == model.DepartmentID);
             var identityuser = new ApplicationUser()
             {
@@ -93,9 +93,9 @@ namespace Education.BusinessLayer.Concrete
                 LastName = model.LastName,
                 Email = model.Mail,
                 UserName = model.Mail,
-                CafeteriaCardID = model.CafeteriaCardID,
+                //CafeteriaCardID = model.CafeteriaCardID,
                 DepartmentID = model.DepartmentID,
-                departmentName=department.DepartmentName
+                departmentName = department.DepartmentName
             };
 
             var result = await _userManager.CreateAsync(identityuser, model.Password);
@@ -117,7 +117,6 @@ namespace Education.BusinessLayer.Concrete
                 Errors = result.Errors.Select(e => e.Description)
             };
         }
-
 
         public void TDelete(ApplicationUser entity)
         {

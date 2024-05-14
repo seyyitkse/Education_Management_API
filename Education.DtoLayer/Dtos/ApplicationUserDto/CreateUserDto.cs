@@ -21,6 +21,6 @@ namespace Education.DtoLayer.Dtos.ApplicationUserDto
         [Required]
         public string? LastName { get; set; }
         public int DepartmentID { get; set; }
-        public int CafeteriaCardID { get; set; }
+        public int? CafeteriaCardID { get; set; }
     }
 }

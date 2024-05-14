@@ -39,7 +39,8 @@ namespace Education.WebApi.Controllers
             Department department = new Department();
             department.DepartmentName = departmentName;
             department.Description = description;
-
+            object deneme=new object();
+            deneme = departmentName;
             var departmentCode = _departmentService.GenerateDepartmentCode(departmentName);
             department.DepartmentCode = departmentCode;
 

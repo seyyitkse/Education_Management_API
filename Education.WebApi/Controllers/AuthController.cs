@@ -45,7 +45,7 @@ namespace Education.WebApi.Controllers
                 }
                 return BadRequest(result);
             }
-            return BadRequest("Bazı değerler girilmedi!");
+            return Ok();
         }
 
         [HttpPost("RegisterTeacher")]
@@ -59,11 +59,11 @@ namespace Education.WebApi.Controllers
                     var user = await _userManager.FindByEmailAsync(model.Mail);
                     await _userManager.AddToRoleAsync(user, "Ogretmen");
 
-                    return Ok(result);
+                    return BadRequest(result);
                 }
-                return BadRequest(result);
+                return Ok(result);
             }
-            return BadRequest("Bazı değerler girilmedi!");
+            return Ok();
         }
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginUserDto model)
@@ -154,7 +154,7 @@ namespace Education.WebApi.Controllers
             string studentClass = userRole.StudentClass;
             var department = _context.Departments.FirstOrDefault(d => d.DepartmentID == departmentId);
             string departmentName = department != null ? department.DepartmentName : "";
-            int cafeteriaId = userRole.CafeteriaCardID;
+            int? cafeteriaId = userRole.CafeteriaCardID;
             var cafeteria = _context.CafeteriaCards.FirstOrDefault(c => c.MealCardID == cafeteriaId);
             var studentId = userRole.Id;
             // öğrenci, dekan, 
